@@ -16,11 +16,10 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Run Unit Tests
+      - name: Install Dependencies & Run Unit Tests
         run: |
-          cd app
-          pip install -r requirements.txt
-          pytest
+          pip install -r app/requirements.txt
+          PYTHONPATH=. pytest app/
 
       - name: Azure Login
         uses: azure/login@v2
@@ -35,5 +34,3 @@ jobs:
           cd terraform
           terraform init
           terraform apply -auto-approve
-
-      # (Optional/Next: Build & Push Docker image to ACR, then deploy to App Service)
